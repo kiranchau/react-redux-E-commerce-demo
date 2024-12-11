@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import Carddata from "./CardData";
 import "./style.css";
+import { useDispatch } from "react-redux";
+import { ADD } from "../redux/actions/Action";
 
 const Cart = () => {
   const [data, setData] = useState(Carddata);
+  const dispatch = useDispatch();
+
+  const addData = (e) => {
+    dispatch(ADD(e));
+  };
+
   return (
     <div className="container mt-3">
       <h2 className="text-center">Add To Cart Projects</h2>
@@ -15,7 +23,7 @@ const Cart = () => {
               <Card
                 style={{ width: "22rem", border: "none" }}
                 className="mx-2 mt-2 card_style"
-                key={cards?.id}
+                key={i}
               >
                 <Card.Img
                   variant="top"
@@ -27,7 +35,13 @@ const Cart = () => {
                   <Card.Title>{cards?.rname}</Card.Title>
                   <Card.Text>Price : ₹ {cards?.price}</Card.Text>
                   <div className="button_div d-flex justify-content-center">
-                    <Button variant="primary" className="col-lg-12">Add To Cart</Button>
+                    <Button
+                      variant="primary"
+                      className="col-lg-12"
+                      onClick={() => addData(cards)}
+                    >
+                      Add To Cart
+                    </Button>
                   </div>
                 </Card.Body>
               </Card>
